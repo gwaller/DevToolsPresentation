@@ -34,6 +34,10 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         // runtime 'mysql:mysql-connector-java:5.1.16'
+		runtime 'postgresql:postgresql:9.1-901.jdbc4'
+		compile (group:'org.apache.solr', name:'solr-solrj', version:'3.6.1')
+		compile (group:'com.drewnoakes', name:'metadata-extractor', version:'2.6.2')
+		
     }
 
     plugins {

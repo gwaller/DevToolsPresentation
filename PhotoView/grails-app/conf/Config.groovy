@@ -6,9 +6,14 @@
 //                             "file:${userHome}/.grails/${appName}-config.properties",
 //                             "file:${userHome}/.grails/${appName}-config.groovy"]
 
-// if (System.properties["${appName}.config.location"]) {
-//    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
-// }
+grails.config.locations = ["file:${userHome}/.grails/${appName}-config.properties"]
+if (System.properties["${appName}_CONFIG"]) {
+    grails.config.locations << "file:" + System.properties["${appName}_CONFIG"]
+ }
+
+ grails.config.locations.each { println "grails.config.locations: ${it}" }
+
+	
 
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
@@ -90,4 +95,6 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+		   
+	debug 'photoview'	   
 }

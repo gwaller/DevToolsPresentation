@@ -6,7 +6,7 @@
 		<title>PhotoView</title>
 		
 		
-		<link href="${resource(dir:'css',file:'bootstrap.min.css')}" rel="stylesheet">
+		<link href="${resource(dir:'css',file:'bootstrap.css')}" rel="stylesheet">
 		
 	</head>
 	<body>
@@ -15,7 +15,25 @@
 		
 		<div class="row-fluid">
     		
-    		<div class="span8 offset2">
+    		<div class="span3">
+    			<h3>Filter Results</h3>
+    			
+    			<!-- Facets -->
+    			<g:each in="${solrQueryResp.facetFields}" status="i" var="facetField">
+    				
+    				<h5 class="text-info">${facetField.name}</h5>
+    				<ul>
+    					<g:each in="${facetField.values}" status="z" var="facetValue">
+    						<li>${facetValue.name} <span class="badge badge-info">${facetValue.count}</span></li>
+    					</g:each>
+    				</ul>
+    				
+    				
+    			</g:each>
+    			
+    		</div>
+    		
+    		<div class="span9">
       			<!--Body content-->
       			<h1>Search Results</h1>
 				

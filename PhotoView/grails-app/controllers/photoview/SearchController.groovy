@@ -14,7 +14,7 @@ class SearchController {
 		def respMap = solrService.query(q);
 		
 		List<Photo> photoBeans = respMap["queryResponse"].getBeans(Photo.class);
-		[photoInstanceList:photoBeans, photoInstanceTotal:photoBeans.size(), q:q]
+		[solrQueryResp:respMap["queryResponse"], photoInstanceList:photoBeans, photoInstanceTotal:photoBeans.size(), q:q]
 	}
 	
 	def show(){

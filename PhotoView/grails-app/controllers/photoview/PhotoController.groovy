@@ -125,4 +125,21 @@ class PhotoController {
 		render(text:sb.toString() , contentType: "text/plain", encoding: "UTF-8")
 		
 	}
+	
+	def showPhoto(){
+		String id = params.id;
+		Photo p = Photo.get(id);
+		String fileName = p.fileName;
+		String path = "${grailsApplication.config.upload.dir}/${fileName}" 
+	
+		response.contentType = 'image/jpg'
+		
+		File binFile = new File(path)
+		response.setHeader('Content-length', "${binFile.size()}")
+		
+		// NOTE: Very bad - reading the whole file into memory
+		response.outputStream << binFile.bytes
+		 
+		response.outputStream.flush()
+	}
 }

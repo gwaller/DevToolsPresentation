@@ -526,16 +526,18 @@
    -->
 
    <field name="id" type="int" indexed="true" stored="true" required="true" />  
-   <field name="title" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="fileName" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="exposureTime" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="aperture" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="iso" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="focalLength" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="cameraModel" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="lens" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="licence" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="title" type="text" indexed="true" stored="true" multiValued="false"/>
+   <field name="fileName" type="text" indexed="true" stored="true" multiValued="false"/>
+   <field name="exposureTime" type="text" indexed="true" stored="true" multiValued="false"/>
+   <field name="aperture" type="text" indexed="true" stored="true" multiValued="false"/>
+   <field name="iso" type="text" indexed="true" stored="true" multiValued="false"/>
+   <field name="focalLength" type="text" indexed="true" stored="true" multiValued="false"/>
+   <field name="cameraModel" type="text" indexed="true" stored="true" multiValued="false"/>
+   <field name="lens" type="text" indexed="true" stored="true" multiValued="false"/>
+   <field name="licence" type="text" indexed="true" stored="true" multiValued="false"/>
    <field name="timestamp" type="date" indexed="true" stored="true" default="NOW" multiValued="false"/>
+   
+   <field name="all_text" type="text_general" indexed="true" stored="false" multiValued="true"/>
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
         will be used if the name matches any of the patterns.
@@ -608,6 +610,16 @@
   <copyField source="lens" dest="lens_facet"/>
   <copyField source="cameraModel" dest="cameraModel_facet"/>
   <copyField source="licence" dest="licence_facet"/>
+  
+  <copyField source="aperture" dest="all_text"/>
+  <copyField source="iso" dest="all_text"/>
+  <copyField source="focalLength" dest="all_text"/>
+  <copyField source="exposureTime" dest="all_text"/>
+  <copyField source="lens" dest="all_text"/>
+  <copyField source="cameraModel" dest="all_text"/>
+  <copyField source="licence" dest="all_text"/>
+  <copyField source="title" dest="all_text"/>
+  <copyField source="fileName" dest="all_text"/>
 
 	
    <!-- Above, multiple source fields are copied to the [text] field. 

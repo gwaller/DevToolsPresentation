@@ -9,7 +9,7 @@ target
 /web-app/plugins
 /web-app/WEB-INF/classes
 target-eclipse/
-.DS_Store/
+.DS_Store
 PhotoView/solr_3.6.1/photo_core/data/
 PhotoView/jetty/work/
 PhotoView/jetty/logs/*.log

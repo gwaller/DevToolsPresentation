@@ -19,18 +19,34 @@
     			<h3>Filter Results</h3>
     			
     			<!-- Facets -->
-    			<g:each in="${solrQueryResp.facetFields}" status="i" var="facetField">
+    			<%
+    				/*
+					fqList contains a list of the fq params e.g. [iso_facet:200,aperture_facet:5.6]
+					
+					facetQueryMap is a map containg the facet queries - key is facet field name and value is the string searched for
+					If facet field name in facetQueryMap, user is filtering on that facet so need to display remove button and the link has the facet query removed from fqList
+					
+					If not in fqList then iterate over the values of the facet fields returned, show them with a link (fqList now has that query added)
+					*/
+    			%>  
     				
-    				<h5 class="text-info">${facetField.name}</h5>
-    				<ul>
-    					<g:each in="${facetField.values}" status="z" var="facetValue">
-    						<li>${facetValue.name} <span class="badge badge-info">${facetValue.count}</span></li>
-    					</g:each>
-    				</ul>
-    				
-    				
-    			</g:each>
     			
+    			<g:each in="${allFacets}" var="facetName">
+    				<h5 class="text-info"><g:message code="${facetName}" /></h5>
+	   				<ul>
+	   					<g:if test="${facetQueryMap.containsKey(facetName)}">
+	   						<g:set var="v" value="${facetQueryMap[facetName]}"/>
+	   						<g:set var="fqList" value='${fqList - ["$facetName:$v"]}' />
+	   						<li>${v} &nbsp; <g:link action="search" params="[q:q,fq:fqList]"><i class="icon-remove"></i></g:link></li>
+	   					</g:if>
+	   					<g:else>
+	   						<g:each in='${solrQueryResp.getFacetField(facetName).values}' var="facetValue">
+	     						<li><g:link action="search" params="[q:q,fq:fqList + [facetValue.asFilterQuery]]">${facetValue.name}</g:link> <span class="badge">${facetValue.count}</span></li>
+	   						</g:each>
+	   					</g:else>
+	   				</ul>
+    			</g:each>
+
     		</div>
     		
     		<div class="span9">
@@ -66,7 +82,7 @@
 				<g:each in="${photoInstanceList}" status="i" var="photoInstance">
 					<tr>
 					
-						<td><g:link action="show" id="${photoInstance.id}">${fieldValue(bean: photoInstance, field: "title")}</g:link></td>
+						<td><g:link action="show" params="[id:photoInstance.id]">${fieldValue(bean: photoInstance, field: "title")}</g:link></td>
 					
 						<td>${fieldValue(bean: photoInstance, field: "aperture")}</td>
 					

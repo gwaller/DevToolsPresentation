@@ -13,3 +13,4 @@ target-eclipse/
 PhotoView/solr_3.6.1/photo_core/data/
 PhotoView/jetty/work/
 PhotoView/jetty/logs/*.log
+cobertura.ser

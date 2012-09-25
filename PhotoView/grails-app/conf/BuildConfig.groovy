@@ -37,6 +37,8 @@ grails.project.dependency.resolution = {
 		runtime 'postgresql:postgresql:9.1-901.jdbc4'
 		compile (group:'org.apache.solr', name:'solr-solrj', version:'3.6.1')
 		compile (group:'com.drewnoakes', name:'metadata-extractor', version:'2.6.2')
+		compile (group:'org.seleniumhq.selenium', name:'selenium-firefox-driver', version:'2.25.0')
+		compile (group:'org.seleniumhq.selenium', name:'selenium-server', version:'2.25.0')
 		
     }
 

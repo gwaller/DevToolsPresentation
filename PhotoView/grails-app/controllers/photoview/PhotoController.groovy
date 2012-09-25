@@ -112,7 +112,7 @@ class PhotoController {
 	
 	def exifDump() {
 		
-		String fileName = params.name;
+		String fileName = params.fileName;
 		StringBuffer sb = new StringBuffer();
 		
 		Metadata metadata = metadataExtractorService.extractMetadata(fileName);

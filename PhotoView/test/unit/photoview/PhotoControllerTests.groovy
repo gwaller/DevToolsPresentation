@@ -1,9 +1,10 @@
 package photoview
 
-
-
 import org.junit.*
 import grails.test.mixin.*
+import groovy.mock.interceptor.MockFor
+import com.drew.metadata.*
+import com.drew.metadata.iptc.IptcDirectory;
 
 @TestFor(PhotoController)
 @Mock(Photo)
@@ -12,10 +13,34 @@ class PhotoControllerTests {
 
     def populateValidParams(params) {
       assert params != null
-      // TODO: Populate valid properties like...
-      //params["name"] = 'someValidName'
+      params["title"] = 'testPhoto'
+	  params["fileName"] = 'picture-2.jpg'
     }
 
+	
+	
+	void testExifDump() {
+		populateValidParams(params)
+		
+		def mockMetadataExtractorServiceFactory = new MockFor(MetadataExtractorService);
+		mockMetadataExtractorServiceFactory.demand.extractMetadata{String fileName ->
+			Metadata m = new Metadata();
+			Directory d = m.getOrCreateDirectory(IptcDirectory.class)
+			d.setString(517, 'Amur Leopard 1')
+			return m
+			
+		}
+		
+		// Set the controller to use the mock service
+		controller.metadataExtractorService = mockMetadataExtractorServiceFactory.proxyInstance();
+		
+		def result = controller.exifDump()
+		
+		assert response.contentType == 'text/plain;charset=UTF-8' 
+		assert response.contentAsString.contains("[Iptc] Object Name - Amur Leopard 1 [ tag type 517]")
+	}
+	
+	
     void testIndex() {
         controller.index()
         assert "/photo/list" == response.redirectedUrl
@@ -46,7 +71,7 @@ class PhotoControllerTests {
         populateValidParams(params)
         controller.save()
 
-        assert response.redirectedUrl == '/photo/show/1'
+        assert response.redirectedUrl == '/photo/show/0'
         assert controller.flash.message != null
         assert Photo.count() == 1
     }
@@ -106,6 +131,8 @@ class PhotoControllerTests {
         // test invalid parameters in update
         params.id = photo.id
         //TODO: add invalid values to params object
+		
+		params.fileName = null
 
         controller.update()
 

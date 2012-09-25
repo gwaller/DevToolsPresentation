@@ -11,7 +11,7 @@ import org.junit.*
 @TestFor(MetadataExtractorService)
 class MetadataExtractorServiceTests {
 
-    void testSomething() {
-        fail "Implement me"
-    }
+	void testPointless() {
+		assert 1 == 1
+	}
 }

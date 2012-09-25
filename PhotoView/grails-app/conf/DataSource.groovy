@@ -1,9 +1,6 @@
 dataSource {
 	pooled = true
-	driverClassName = "org.postgresql.Driver"
-	dialect = org.hibernate.dialect.PostgreSQLDialect
-	username = "photoview"
-	password = "photoview"
+	
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -14,6 +11,12 @@ hibernate {
 environments {
     development {
         dataSource {
+			driverClassName = "org.postgresql.Driver"
+			dialect = org.hibernate.dialect.PostgreSQLDialect
+			username = "photoview"
+			password = "photoview"
+			
+			
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:postgresql://localhost:5432/photoview"
         }
@@ -22,10 +25,19 @@ environments {
         dataSource {
             dbCreate = "update"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE"
+			driverClassName = "org.h2.Driver"
+			username = "sa"
+			password = ""
         }
     }
     production {
         dataSource {
+			driverClassName = "org.postgresql.Driver"
+			dialect = org.hibernate.dialect.PostgreSQLDialect
+			username = "photoview"
+			password = "photoview"
+			
+			
             dbCreate = "update"
             url = "jdbc:postgresql://localhost:5432/photoview"
             pooled = true

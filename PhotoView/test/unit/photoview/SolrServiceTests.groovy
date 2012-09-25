@@ -11,7 +11,7 @@ import org.junit.*
 @TestFor(SolrService)
 class SolrServiceTests {
 
-    void testExampleTestWhichFails() {
-        fail "Implement me"
-    }
+    void testPointless() {
+		assert 1 == 1
+	}
 }

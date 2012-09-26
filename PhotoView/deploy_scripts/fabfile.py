@@ -16,7 +16,7 @@ def deploy():
 		local("{}/stop-solr.sh 8984 solr".format(WORKSPACE_PATH))
 		time.sleep(20)
 	
-	local("{}/start-solr.sh 8983 8984 solr".format(WORKSPACE_PATH))
+	local("BUILD_ID=dontkillmehudson {}/start-solr.sh 8983 8984 solr".format(WORKSPACE_PATH))
 	time.sleep(20)
 
 	local("{}/clear_solr.sh 8983".format(WORKSPACE_PATH))
